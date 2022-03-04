@@ -1,5 +1,12 @@
 
 (function ($) {
+
+    $.fn.scrollTo = function (elem, speed) {
+        $(this).animate({
+            scrollTop: $(this).scrollTop() - $(this).offset().top + $(elem).offset().top
+        }, speed == undefined ? 1000 : speed);
+        return this;
+    };
     $.fn.njTimepick = function () {
         init(this);
         function init(timeInputs) {
@@ -122,9 +129,11 @@
                                .nj-timepick__meridian[val="' + meridian + '"]');
                 boxesToActivate.addClass('nj-timepick__box--active')
                     .siblings()
-                    .removeClass('nj-timepick__box--active')
-
+                    .removeClass('nj-timepick__box--active');
+                $(".nj-timepick__hours-boxes").scrollTo(boxesToActivate[0]);
+                $(".nj-timepick__minutes-boxes").scrollTo(boxesToActivate[1]);
             }
+
             function to24hrFormat(hour, minute, meridian) {
                 if (hour === '12') hour = '00';
                 if (meridian === 'PM') hour = parseInt(hour, 10) + 12;
