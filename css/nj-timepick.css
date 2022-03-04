@@ -21,13 +21,14 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     right: -100%;
     top: 0;
     bottom: 0;
-    width: 50%;
+    width: 100%;
     z-index: 5000;
     transition: right 0.7s ease;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    background-color: rgba(0,0,0,0.3);
 }
 .nj-timepick--active {
     right: 0;
