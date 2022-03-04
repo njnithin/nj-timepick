@@ -4,7 +4,7 @@ body .nj-timepick {
     --nj-timepick-primary: #cecece;
 }
 input[type="time"]::-webkit-calendar-picker-indicator {
-    /* display: none; */
+    display: none;
 }
 .nj-timepick-input{
     outline: 0 !important;
