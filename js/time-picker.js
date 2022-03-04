@@ -151,6 +151,8 @@
         timeInputs.njTimepick();
     }
     $(window).on('load', function () {
-        timePicker();
+        if (window.innerWidth > 767) {
+            timePicker();
+        }
     })
 }(jQuery));
