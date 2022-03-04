@@ -3,9 +3,9 @@ body .nj-timepick {
     font-family: 'Roboto', sans-serif;
     --nj-timepick-primary: #cecece;
 }
-input[type="time"]::-webkit-calendar-picker-indicator {
+/* input[type="time"]::-webkit-calendar-picker-indicator {
     display: none;
-}
+} */
 .nj-timepick-input{
     outline: 0 !important;
 }
@@ -28,20 +28,29 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0.2);
 }
 .nj-timepick--active {
     right: 0;
 }
 .nj-timepick__boxes-column {
-    width: 53px;
+    width: 50px;
     overflow: hidden;
 }
 
 .nj-timepick__boxes {
-    width: 70px;
-    height: 260px;
+    /* height: 260px; */
+    height: 220px;
     overflow: auto;
+}
+.nj-timepick__boxes::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.nj-timepick__boxes {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 .nj-timepick__box{
     cursor: pointer;
@@ -54,6 +63,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     justify-content: center;
     align-items: center;
 }
+
 .nj-timepick__box--active {
     font-weight: 700;
     border: 2px solid #000;
