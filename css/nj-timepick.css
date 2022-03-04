@@ -3,9 +3,9 @@ body .nj-timepick {
     font-family: 'Roboto', sans-serif;
     --nj-timepick-primary: #cecece;
 }
-/* input[type="time"]::-webkit-calendar-picker-indicator {
+input[type="time"]::-webkit-calendar-picker-indicator {
     display: none;
-} */
+} 
 .nj-timepick-input{
     outline: 0 !important;
 }
