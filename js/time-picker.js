@@ -1,6 +1,5 @@
 
 (function ($) {
-
     $.fn.scrollTo = function (elem, speed) {
         $(this).animate({
             scrollTop: $(this).scrollTop() - $(this).offset().top + $(elem).offset().top
@@ -40,7 +39,7 @@
                                                 '+ createBoxes("hours", 1, 12, 1, "hour") + '\
                                         </div>\
                                         <div class="nj-timepick__boxes-column nj-timepick__minutes">\
-                                                '+ createBoxes("minutes", 0, 60, 0, "minute") + '\
+                                                '+ createBoxes("minutes", 0, 59, 0, "minute") + '\
                                         </div>\
                                         <div class="nj-timepick__boxes-column nj-timepick__meridians">\
                                           <div val="AM" class="nj-timepick__box nj-timepick__meridian  nj-timepick__box--active">AM</div>\
@@ -79,10 +78,15 @@
                             setTimeout(function () { setTime() }, 300);
                         });
                         function setTime() {
-                            var hour = njTimePick.find('.nj-timepick__hours .nj-timepick__box--active').text().trim(),
-                                minute = njTimePick.find('.nj-timepick__minutes .nj-timepick__box--active').text().trim(),
-                                meridian = njTimePick.find('.nj-timepick__meridians .nj-timepick__box--active').text().trim(),
-                                timeIn24hr = to24hrFormat(hour, minute, meridian);
+                            var hourActive = njTimePick.find('.nj-timepick__hours .nj-timepick__box--active'),
+                                minuteActive = njTimePick.find('.nj-timepick__minutes .nj-timepick__box--active'),
+                                meridianActive = njTimePick.find('.nj-timepick__meridians .nj-timepick__box--active'),
+                                hourValue = hourActive.text().trim(),
+                                minuteValue = minuteActive.text().trim(),
+                                meridianValue = meridianActive.text().trim(),
+                                timeIn24hr = to24hrFormat(hourValue, minuteValue, meridianValue);
+                            $(".nj-timepick__hours-boxes").scrollTo(hourActive, 100);
+                            $(".nj-timepick__minutes-boxes").scrollTo(minuteActive, 100);
                             $('.nj-timepick-input--active').val(timeIn24hr);
                         }
                     }
@@ -106,7 +110,7 @@
                     $('.nj-timepick-input--active').removeClass('nj-timepick-input--active');
                     if (alreadyActive) return;
                     var clickedTime = timeInput.val();
-                    if (clickedTime != '') changeTimeInPopup(clickedTime);
+                    if (clickedTime != '') changeTimeInPopup(clickedTime, 'scroll-enable');
                     popup.removeClass('nj-timepick--active');
                     timeInput.addClass('nj-timepick-input--active');
                     popup.addClass('nj-timepick--active');
@@ -116,10 +120,10 @@
             function timeInputChangeEvent(timeInput) {
                 timeInput.on('change', function () {
                     var changedTime = timeInput.val();
-                    if (changedTime != '') changeTimeInPopup(changedTime);
+                    if (changedTime != '') changeTimeInPopup(changedTime, 'scroll-disable');
                 });
             }
-            function changeTimeInPopup(clickedTime) {
+            function changeTimeInPopup(clickedTime, scroll) {
                 var timeObj = convert24hrToNormal(clickedTime),
                     hour = timeObj.hour,
                     minute = timeObj.minute,
@@ -130,8 +134,10 @@
                 boxesToActivate.addClass('nj-timepick__box--active')
                     .siblings()
                     .removeClass('nj-timepick__box--active');
-                $(".nj-timepick__hours-boxes").scrollTo(boxesToActivate[0]);
-                $(".nj-timepick__minutes-boxes").scrollTo(boxesToActivate[1]);
+                if (scroll === 'scroll-enable') {
+                    $(".nj-timepick__hours-boxes").scrollTo(boxesToActivate[0]);
+                    $(".nj-timepick__minutes-boxes").scrollTo(boxesToActivate[1]);
+                }
             }
 
             function to24hrFormat(hour, minute, meridian) {
