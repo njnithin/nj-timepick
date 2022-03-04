@@ -29,13 +29,13 @@
                 var template = '\
                                     <div class="nj-timepick"> \
                                         <div class="nj-timepick__panel">\
-                                        <div class="nj-timepick__hours">\
+                                        <div class="nj-timepick__boxes-column nj-timepick__hours">\
                                                 '+ createBoxes("hours", 1, 12, 1, "hour") + '\
                                         </div>\
-                                        <div class="nj-timepick__minutes">\
+                                        <div class="nj-timepick__boxes-column nj-timepick__minutes">\
                                                 '+ createBoxes("minutes", 0, 60, 0, "minute") + '\
                                         </div>\
-                                        <div class="nj-timepick__meridians">\
+                                        <div class="nj-timepick__boxes-column nj-timepick__meridians">\
                                           <div val="AM" class="nj-timepick__box nj-timepick__meridian  nj-timepick__box--active">AM</div>\
                                           <div val="PM" class="nj-timepick__box nj-timepick__meridian">PM</div>\
                                         </div>\
@@ -43,7 +43,7 @@
                 $('body').append(template);
                 /* Create hours and minute boxes */
                 function createBoxes(type, start, end, activateDigit, boxClass) {
-                    var template = '<div class="nj-timepick__' + type + '">';
+                    var template = '<div class="nj-timepick__boxes nj-timepick__' + type + '-boxes">';
                     for (start; start <= end; start++) {
                         activeClass = start === activateDigit ? "nj-timepick__box--active " : "";
                         value = ('0' + start).slice(-2);
@@ -149,10 +149,6 @@
     function timePicker() {
         var timeInputs = $('input[type="time"');
         timeInputs.njTimepick();
-        // console.log(timeInputs.val().trim() === '')
-        timeInputs.on('click', function () {
-
-        });
     }
     $(window).on('load', function () {
         timePicker();
